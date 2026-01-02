@@ -26,18 +26,11 @@
             .header-text { text-align: center; }
         }
 
-        /* KHUNG BANNER TOP (ADSTERRA) */
+        /* A-ADS BANNER */
         .ad-banner { 
-            background: #000; padding: 15px; text-align: center; border-bottom: 1px solid #334155; 
+            background: #000; padding: 10px; text-align: center; border-bottom: 1px solid #334155; 
             min-height: 100px; display: flex; align-items: center; justify-content: center;
         }
-        /* Hiệu ứng ảnh Banner */
-        .ad-banner img {
-            max-width: 100%; height: auto; border-radius: 5px;
-            box-shadow: 0 0 15px rgba(255, 75, 31, 0.3); /* Phát sáng nhẹ màu cam */
-            transition: transform 0.3s;
-        }
-        .ad-banner img:hover { transform: scale(1.02); }
 
         /* CONTAINER */
         .container { max-width: 1200px; margin: 30px auto; padding: 0 15px; }
@@ -67,19 +60,21 @@
         }
         .btn-download:hover { opacity: 0.9; transform: scale(1.02); }
 
-        /* NÚT ADSTERRA DƯỚI ĐÁY (GIỮ LẠI ĐỂ TĂNG CLICK) */
+        /* ADSTERRA REF SECTION */
         .adsterra-section {
             text-align: center; margin: 40px auto 10px; max-width: 800px;
             padding: 20px; border-top: 1px dashed #334155;
         }
         .adsterra-title { color: #94a3b8; font-size: 13px; margin-bottom: 15px; letter-spacing: 1px; text-transform: uppercase; }
+        
+        /* Nút Adsterra (Đỏ) */
         .btn-adsterra {
             display: inline-block;
             background: linear-gradient(90deg, #dc2626, #b91c1c);
             color: white; font-weight: bold; text-decoration: none;
             padding: 15px 40px; border-radius: 50px; font-size: 18px;
             box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
-            transition: 0.3s; width: 80%; max-width: 600px;
+            transition: 0.3s; width: 80%; max-width: 600px; margin-top: 20px;
         }
         .btn-adsterra:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(220, 38, 38, 0.6); }
 
@@ -94,7 +89,7 @@
 
         /* FOOTER */
         .footer { text-align: center; padding: 30px; color: #64748b; font-size: 12px; margin-top: 50px; border-top: 1px solid #334155; }
-        @media (max-width: 768px) { .ad-banner img { width: 100%; height: auto; } }
+        @media (max-width: 768px) { .ad-banner iframe { transform: scale(0.45); transform-origin: center; } }
     </style>
 </head>
 
@@ -111,10 +106,9 @@
     </div>
 
     <div class="ad-banner">
-        <a href="https://beta.publishers.adsterra.com/referral/HUC1BgE2pp" rel="nofollow" target="_blank">
-            <img alt="Adsterra Banner" src="https://landings-cdn.adsterratech.com/referralBanners/png/700%20x%2090%20px.png" width="728" height="90" />
-        </a>
+        <iframe data-aa='2426333' src='//ad.a-ads.com/2426333?size=728x90' style='width:728px; height:90px; border:0px; padding:0; overflow:hidden; background-color: transparent;'></iframe>
     </div>
+
     <div class="container">
         <div class="grid">
             <div class="card" onclick="xuLyClickApp('baby', event)">
@@ -181,6 +175,11 @@
 
     <div class="adsterra-section">
         <p class="adsterra-title">💎 ĐỐI TÁC QUẢNG CÁO ĐỘC QUYỀN</p>
+        
+        <a href="https://beta.publishers.adsterra.com/referral/HUC1BgE2pp" rel="nofollow" target="_blank">
+            <img alt="banner" src="https://landings-cdn.adsterratech.com/referralBanners/png/700%20x%2090%20px.png" style="max-width: 100%; height: auto; border-radius: 10px;" />
+        </a>
+
         <a href="https://beta.publishers.adsterra.com/referral/HUC1BgE2pp" rel="nofollow" target="_blank" class="btn-adsterra">
              <i class="fas fa-dollar-sign"></i> ĐĂNG KÝ KIẾM TIỀN ONLINE
         </a>
@@ -217,11 +216,11 @@
         };
 
         // TRẠNG THÁI
-        let isOtieuBodyOpened = false; 
-        let isShopeeUsed = false;
-        let appClickStatus = {}; 
+        let isOtieuBodyOpened = false; // Đã mở Otieu toàn trang chưa?
+        let isShopeeUsed = false;      // Đã dùng lượt Shopee chưa?
+        let appClickStatus = {};       // Lưu trạng thái click của từng App
 
-        // 1. CLICK BODY: OTIEU 1
+        // 1. CLICK BODY: NHẢY OTIEU 1 LẦN ĐẦU
         function clickBodyFirstTime() {
             if (!isOtieuBodyOpened) {
                 window.open(LINK_OTIEU_BODY, '_blank');
@@ -229,7 +228,7 @@
             }
         }
 
-        // 2. CLICK APP: PHÂN PHỐI
+        // 2. CLICK VÀO APP: PHÂN PHỐI THÔNG MINH
         function xuLyClickApp(key, event) {
             if(event) event.stopPropagation();
 
@@ -238,18 +237,21 @@
 
             const linkChinh = LINKS_PRODUCT[key];
 
-            // BẤM LẦN 1
+            // === LẦN BẤM ĐẦU TIÊN VÀO APP NÀY ===
             if (appClickStatus[key] === 1) {
                 if (!isShopeeUsed) {
+                    // Chưa xài Shopee -> Bung SHOPEE
                     const randomShopee = LIST_SHOPEE[Math.floor(Math.random() * LIST_SHOPEE.length)];
                     window.open(randomShopee, '_blank');
                     isShopeeUsed = true; 
                 } else {
+                    // Đã xài Shopee -> Bung OTIEU MỚI
                     window.open(LINK_OTIEU_APP_OTHER, '_blank');
                 }
             } 
-            // BẤM LẦN 2+
+            // === LẦN BẤM THỨ 2 TRỞ ĐI ===
             else {
+                // Mở Link App Thật
                 if(linkChinh) window.open(linkChinh, '_blank');
             }
         }
