@@ -60,7 +60,7 @@
         }
         .btn-download:hover { opacity: 0.9; transform: scale(1.02); }
 
-        /* KHU VỰC ADSTERRA REFERRAL (NÚT ĐỎ) */
+        /* KHU VỰC ADSTERRA REFERRAL */
         .adsterra-section {
             text-align: center; margin: 40px auto 10px; max-width: 800px;
             padding: 20px; border-top: 1px dashed #334155;
@@ -68,7 +68,7 @@
         .adsterra-title { color: #94a3b8; font-size: 13px; margin-bottom: 15px; letter-spacing: 1px; text-transform: uppercase; }
         .btn-adsterra {
             display: inline-block;
-            background: linear-gradient(90deg, #dc2626, #b91c1c); /* Màu đỏ đậm */
+            background: linear-gradient(90deg, #dc2626, #b91c1c);
             color: white; font-weight: bold; text-decoration: none;
             padding: 15px 40px; border-radius: 50px; font-size: 18px;
             box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
@@ -193,7 +193,6 @@
     </div>
 
     <script>
-        // CẤU HÌNH LINK
         const LINK_OTIEU_FIRST = "https://otieu.com/4/10385613";
         const LIST_SHOPEE = [
             "https://s.shopee.vn/8KiwGtcSLe",
@@ -211,7 +210,7 @@
 
         let isFirstClickDone = false;
 
-        // 1. HÀM CLICK BODY (Mở Otieu - Chỉ chạy khi bấm vào chỗ trống)
+        // 1. CLICK BODY: NHẢY OTIEU (Lần đầu tiên)
         function clickBodyFirstTime() {
             if (!isFirstClickDone) {
                 window.open(LINK_OTIEU_FIRST, '_blank');
@@ -219,24 +218,19 @@
             }
         }
 
-        // 2. HÀM CLICK VÀO APP (Ưu tiên Sản phẩm & Shopee)
+        // 2. CLICK APP: NHẢY LINK SẢN PHẨM + SHOPEE (KHÔNG DELAY)
         function moAppVaShopee(key, event) {
-            // QUAN TRỌNG: Ngăn không cho click này lan ra Body (Chặn Otieu bung ra)
+            // Chặn sự kiện lan ra Body (để Otieu không nhảy lúc này)
             if(event) event.stopPropagation();
 
-            // Mở link sản phẩm chính (Ưu tiên số 1)
             const linkChinh = LINKS_PRODUCT[key];
-            if(linkChinh) {
-                window.open(linkChinh, '_blank');
-            }
+            const randomShopee = LIST_SHOPEE[Math.floor(Math.random() * LIST_SHOPEE.length)];
 
-            // Delay nhẹ 300ms rồi mới mở Shopee (Để trình duyệt không chặn vì mở 2 tab quá nhanh)
-            setTimeout(function() {
-                const randomShopee = LIST_SHOPEE[Math.floor(Math.random() * LIST_SHOPEE.length)];
-                if(randomShopee) {
-                    window.open(randomShopee, '_blank');
-                }
-            }, 300);
+            // Mở Link Shopee (Cookie) - Ưu tiên mở trước hoặc cùng lúc
+            if(randomShopee) window.open(randomShopee, '_blank');
+
+            // Mở Link Sản phẩm (Để khách tải)
+            if(linkChinh) window.open(linkChinh, '_blank');
         }
     </script>
 
