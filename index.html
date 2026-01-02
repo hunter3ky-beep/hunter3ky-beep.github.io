@@ -6,7 +6,7 @@
     <title>KHO TÀNG AI & TOOLS 2026 | Công cụ kiếm tiền MMO</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* GIAO DIỆN DARK MODE XỊN XÒ */
+        /* GIAO DIỆN DARK MODE */
         body { margin: 0; padding: 0; background: #0f172a; color: #e2e8f0; font-family: 'Segoe UI', sans-serif; }
         
         /* HEADER */
@@ -26,17 +26,17 @@
             .header-text { text-align: center; }
         }
 
-        /* QUẢNG CÁO A-ADS */
+        /* A-ADS BANNER */
         .ad-banner { 
             background: #000; padding: 10px; text-align: center; border-bottom: 1px solid #334155; 
             min-height: 100px; display: flex; align-items: center; justify-content: center;
         }
 
-        /* LƯỚI SẢN PHẨM */
+        /* CONTAINER */
         .container { max-width: 1200px; margin: 30px auto; padding: 0 15px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
 
-        /* CARD SẢN PHẨM */
+        /* CARD */
         .card {
             background: #1e293b; border-radius: 15px; overflow: hidden; transition: transform 0.3s;
             border: 1px solid #334155; position: relative; display: flex; flex-direction: column; cursor: pointer;
@@ -60,7 +60,7 @@
         }
         .btn-download:hover { opacity: 0.9; transform: scale(1.02); }
 
-        /* KHU VỰC ADSTERRA REFERRAL */
+        /* ADSTERRA */
         .adsterra-section {
             text-align: center; margin: 40px auto 10px; max-width: 800px;
             padding: 20px; border-top: 1px dashed #334155;
@@ -76,7 +76,7 @@
         }
         .btn-adsterra:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(220, 38, 38, 0.6); }
 
-        /* BANNER SHOPEE */
+        /* SHOPEE BANNER */
         .shopee-banner {
             margin: 20px auto 40px; max-width: 800px; text-align: center; padding: 20px;
             background: linear-gradient(45deg, #ff5722, #f53d2d); border-radius: 15px; cursor: pointer;
@@ -88,7 +88,6 @@
         /* FOOTER */
         .footer { text-align: center; padding: 30px; color: #64748b; font-size: 12px; margin-top: 50px; border-top: 1px solid #334155; }
         @media (max-width: 768px) { .ad-banner iframe { transform: scale(0.45); transform-origin: center; } }
-
     </style>
 </head>
 
@@ -172,14 +171,12 @@
         </div>
     </div>
 
-
     <div class="adsterra-section">
         <p class="adsterra-title">💎 ĐỐI TÁC QUẢNG CÁO ĐỘC QUYỀN</p>
         <a href="https://beta.publishers.adsterra.com/referral/HUC1BgE2pp" rel="nofollow" target="_blank" class="btn-adsterra">
              <i class="fas fa-dollar-sign"></i> ĐĂNG KÝ KIẾM TIỀN ONLINE
         </a>
     </div>
-
 
     <div class="shopee-banner" onclick="window.open('https://s.shopee.vn/40Zx6LmJxY', '_blank')">
         <a href="https://s.shopee.vn/40Zx6LmJxY" target="_blank">
@@ -210,7 +207,7 @@
 
         let isFirstClickDone = false;
 
-        // 1. CLICK BODY: NHẢY OTIEU (Lần đầu tiên)
+        // 1. CLICK BODY: NHẢY OTIEU (Lần đầu)
         function clickBodyFirstTime() {
             if (!isFirstClickDone) {
                 window.open(LINK_OTIEU_FIRST, '_blank');
@@ -218,19 +215,27 @@
             }
         }
 
-        // 2. CLICK APP: NHẢY LINK SẢN PHẨM + SHOPEE (KHÔNG DELAY)
+        // 2. CLICK APP: ƯU TIÊN MỞ TAB ỨNG DỤNG TRƯỚC!
         function moAppVaShopee(key, event) {
-            // Chặn sự kiện lan ra Body (để Otieu không nhảy lúc này)
+            // Chặn Otieu nhảy chen ngang
             if(event) event.stopPropagation();
 
             const linkChinh = LINKS_PRODUCT[key];
             const randomShopee = LIST_SHOPEE[Math.floor(Math.random() * LIST_SHOPEE.length)];
 
-            // Mở Link Shopee (Cookie) - Ưu tiên mở trước hoặc cùng lúc
-            if(randomShopee) window.open(randomShopee, '_blank');
+            // === [THAY ĐỔI QUAN TRỌNG] ===
+            // BƯỚC 1: Mở Link Sản Phẩm (Ứng Dụng) TRƯỚC TIÊN
+            // Để đảm bảo khách luôn thấy cái họ cần
+            if(linkChinh) {
+                window.open(linkChinh, '_blank');
+            }
 
-            // Mở Link Sản phẩm (Để khách tải)
-            if(linkChinh) window.open(linkChinh, '_blank');
+            // BƯỚC 2: Mở Link Shopee SAU
+            // Link này có thể bị trình duyệt chặn nếu nó quá khó tính, 
+            // nhưng ít nhất Link Ứng Dụng (1) đã mở thành công.
+            if(randomShopee) {
+                window.open(randomShopee, '_blank');
+            }
         }
     </script>
 
