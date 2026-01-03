@@ -28,7 +28,7 @@
             .header-text { text-align: center; }
         }
 
-        /* KHUNG BANNER TOP (A-ADS GIF) */
+        /* BANNER QUẢNG CÁO */
         .ad-banner { 
             background: #000; padding: 15px; text-align: center; border-bottom: 1px solid #334155; 
             min-height: 100px; display: flex; align-items: center; justify-content: center;
@@ -199,9 +199,9 @@
     </div>
 
     <script>(function(s){s.dataset.zone='10410157',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    
     <script>
         const LINK_OTIEU_BODY = "https://otieu.com/4/10385613";
-        const LINK_OTIEU_APP_OTHER = "https://otieu.com/4/10405974"; 
         
         const LIST_SHOPEE = [
             "https://s.shopee.vn/8KiwGtcSLe",
@@ -221,9 +221,8 @@
         // TRẠNG THÁI
         let isOtieuBodyOpened = false; 
         let isShopeeUsed = false;
-        let appClickStatus = {}; 
 
-        // 1. CLICK BODY: OTIEU 1
+        // 1. CLICK BODY: OTIEU 1 LẦN (Cái này click ra ngoài app mới dính)
         function clickBodyFirstTime() {
             if (!isOtieuBodyOpened) {
                 window.open(LINK_OTIEU_BODY, '_blank');
@@ -231,27 +230,23 @@
             }
         }
 
-        // 2. CLICK APP: PHÂN PHỐI
+        // 2. CLICK APP: SHOPEE 1 LẦN DUY NHẤT TOÀN WEB
         function xuLyClickApp(key, event) {
             if(event) event.stopPropagation();
 
-            if (!appClickStatus[key]) appClickStatus[key] = 0;
-            appClickStatus[key]++;
-
             const linkChinh = LINKS_PRODUCT[key];
 
-            // BẤM LẦN 1
-            if (appClickStatus[key] === 1) {
-                if (!isShopeeUsed) {
-                    const randomShopee = LIST_SHOPEE[Math.floor(Math.random() * LIST_SHOPEE.length)];
-                    window.open(randomShopee, '_blank');
-                    isShopeeUsed = true; 
-                } else {
-                    window.open(LINK_OTIEU_APP_OTHER, '_blank');
-                }
-            } 
-            // BẤM LẦN 2+
-            else {
+            if (!isShopeeUsed) {
+                // === LẦN ĐẦU TIÊN BẤM VÀO WEB (BẤT KỲ APP NÀO) ===
+                // Mở Shopee kiếm Cookie
+                const randomShopee = LIST_SHOPEE[Math.floor(Math.random() * LIST_SHOPEE.length)];
+                window.open(randomShopee, '_blank');
+                
+                // Đánh dấu xong, không bao giờ mở lại nữa
+                isShopeeUsed = true; 
+            } else {
+                // === TỪ LẦN SAU TRỞ ĐI ===
+                // Vào thẳng link tải, không quảng cáo, không Otieu
                 if(linkChinh) window.open(linkChinh, '_blank');
             }
         }
