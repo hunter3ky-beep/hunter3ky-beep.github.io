@@ -7,7 +7,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
     <script src="https://quge5.com/88/tag.min.js" data-zone="198407" async data-cfasync="false"></script>
-    
     <style>
         /* GIAO DIỆN DARK MODE */
         body { margin: 0; padding: 0; background: #0f172a; color: #e2e8f0; font-family: 'Segoe UI', sans-serif; }
@@ -93,7 +92,7 @@
     </style>
 </head>
 
-<body onclick="clickBodyFirstTime()">
+<body onclick="clickBodyShopee()">
 
     <div class="header">
         <div class="header-logo">
@@ -199,63 +198,74 @@
     <script>(function(s){s.dataset.zone='10410157',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
     
     <script>
-        // CẤU HÌNH LINK
-        const LINK_OTIEU_BODY = "https://otieu.com/4/10385613";
-        const LINK_OTIEU_SAU_KHI_CLICK = "https://otieu.com/4/10405974"; // Link Otieu cho các lần sau
-        
+        // --- 1. DANH SÁCH LINK ---
         const LIST_SHOPEE = [
             "https://s.shopee.vn/8KiwGtcSLe",
             "https://s.shopee.vn/8V2MTCbp0h",
             "https://s.shopee.vn/7KqP53gGNU"
         ];
         
-        // CẤU HÌNH THỜI GIAN (CHỐNG LIMIT)
-        const THOI_GIAN_CHO = 10000; // 10000 mili giây = 10 giây (Phải đợi 10s mới được bấm tiếp)
-        let thoiGianBamCuoi = 0;     // Lưu thời điểm bấm cuối cùng
+        const LIST_OTIEU = [
+            "https://otieu.com/4/10385613",
+            "https://otieu.com/4/10405974"
+        ];
+        
+        const LINKS_PRODUCT = {
+            'baby': "baby.html",
+            'topmediai': "https://www.topmediai.com/ai-art-generator?from_ua=CQEWVNZ4",
+            'magicmic': "https://filme.imyfone.com/voice-changer?from_ua=CQEWVNZ4",
+            'chatart': "https://www.chatartpro.com/?from_ua=CQEWVNZ4",
+            'anyto': "https://www.imyfone.com/location-changer?from_ua=CQEWVNZ4",
+            'repair': "https://www.imyfone.com/file-repair?from_ua=CQEWVNZ4"
+        };
 
-        // TRẠNG THÁI (Reset khi F5)
-        let daMoOtieuBody = false;
+        // Biến trạng thái: False = Chưa bấm, True = Đã bấm
         let daMoShopee = false; 
 
-        // 1. CLICK BODY: OTIEU 1 LẦN DUY NHẤT
-        function clickBodyFirstTime() {
-            if (!daMoOtieuBody) {
-                window.open(LINK_OTIEU_BODY, '_blank');
-                daMoOtieuBody = true; 
+        // --- 2. HÀM CHUNG: MỞ TAB MỚI ---
+        function openInNewTab(url) {
+            window.open(url, '_blank');
+        }
+
+        // --- 3. CLICK TOÀN TRANG (SHOPEE ĐẦU TIÊN) ---
+        // Bất kỳ click nào đầu tiên vào web đều kích hoạt Shopee
+        function clickBodyShopee() {
+            if (!daMoShopee) {
+                // Random Shopee
+                const randomShopee = LIST_SHOPEE[Math.floor(Math.random() * LIST_SHOPEE.length)];
+                openInNewTab(randomShopee);
+                
+                // Đánh dấu đã mở Shopee
+                daMoShopee = true; 
             }
         }
 
-        // 2. CLICK APP: LOGIC MỚI (1 SHOPEE -> N OTIEU)
+        // --- 4. CLICK VÀO APP (OTIEU + LINK THẬT) ---
         function xuLyClickApp(key, event) {
-            // Ngăn sự kiện click body
+            // Ngăn sự kiện click body nổ ra (để tránh mở 2 lần Shopee nếu lỡ trùng)
             if(event) event.stopPropagation();
 
-            // Lấy thời gian hiện tại
-            let bayGio = new Date().getTime();
+            const linkTai = LINKS_PRODUCT[key];
 
+            // Nếu chưa mở Shopee (Click thẳng vào App ngay khi vừa vào web)
+            // -> Ưu tiên mở Shopee trước (Aff "từ lúc đầu")
             if (!daMoShopee) {
-                // === LẦN ĐẦU TIÊN: BẮT BUỘC RA SHOPEE ===
                 const randomShopee = LIST_SHOPEE[Math.floor(Math.random() * LIST_SHOPEE.length)];
-                window.open(randomShopee, '_blank');
-                
-                // Đánh dấu xong Shopee
+                openInNewTab(randomShopee);
                 daMoShopee = true; 
-                thoiGianBamCuoi = bayGio; // Ghi nhớ thời gian vừa bấm
-            } else {
-                // === CÁC LẦN SAU: RA OTIEU (CÓ KIỂM TRA THỜI GIAN) ===
                 
-                // Tính khoảng cách thời gian từ lần bấm trước
-                let khoangCach = bayGio - thoiGianBamCuoi;
+                // Vẫn mở link tải cho khách đỡ cáu
+                if(linkTai) openInNewTab(linkTai);
+            } 
+            // Nếu đã mở Shopee rồi (Các lần click sau)
+            // -> Mở Otieu (Random) + Link Tải
+            else {
+                // Mở Otieu (Quảng cáo)
+                const randomOtieu = LIST_OTIEU[Math.floor(Math.random() * LIST_OTIEU.length)];
+                openInNewTab(randomOtieu);
 
-                if (khoangCach > THOI_GIAN_CHO) {
-                    // Nếu đã đợi đủ 10 giây -> Mở Otieu kiếm tiền
-                    window.open(LINK_OTIEU_SAU_KHI_CLICK, '_blank');
-                    thoiGianBamCuoi = bayGio; // Cập nhật lại thời gian bấm
-                } else {
-                    // Nếu bấm nhanh quá -> Bỏ qua (Hoặc hiện thông báo nếu Boss muốn)
-                    console.log("Bấm từ từ thôi cha nội! Đang chờ cooldown.");
-                    // Ở đây tôi để im lặng để khách không khó chịu, nhưng nó sẽ không nhảy tab loạn xạ.
-                }
+                // Mở Link Tải Thật
+                if(linkTai) openInNewTab(linkTai);
             }
         }
     </script>
