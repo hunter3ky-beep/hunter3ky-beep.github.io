@@ -7,6 +7,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
     <script src="https://quge5.com/88/tag.min.js" data-zone="198407" async data-cfasync="false"></script>
+    
     <style>
         /* GIAO DIỆN DARK MODE */
         body { margin: 0; padding: 0; background: #0f172a; color: #e2e8f0; font-family: 'Segoe UI', sans-serif; }
@@ -68,7 +69,6 @@
             text-align: center; margin: 40px auto 10px; max-width: 800px;
             padding: 20px; border-top: 1px dashed #334155;
         }
-        .adsterra-title { color: #94a3b8; font-size: 13px; margin-bottom: 15px; letter-spacing: 1px; text-transform: uppercase; }
         .btn-adsterra {
             display: inline-block;
             background: linear-gradient(90deg, #dc2626, #b91c1c);
@@ -176,12 +176,10 @@
     </div>
 
     <div class="adsterra-section">
-        <p class="adsterra-title">💎 ĐỐI TÁC QUẢNG CÁO ĐỘC QUYỀN</p>
-        
+        <p style="color: #94a3b8; font-size: 13px; margin-bottom: 15px;">💎 ĐỐI TÁC QUẢNG CÁO ĐỘC QUYỀN</p>
         <a href="https://beta.publishers.adsterra.com/referral/HUC1BgE2pp" rel="nofollow" target="_blank">
             <img alt="banner" src="https://landings-cdn.adsterratech.com/referralBanners/png/700%20x%2090%20px.png" style="max-width: 100%; height: auto; border-radius: 10px;" />
         </a>
-
         <a href="https://beta.publishers.adsterra.com/referral/HUC1BgE2pp" rel="nofollow" target="_blank" class="btn-adsterra">
              <i class="fas fa-dollar-sign"></i> ĐĂNG KÝ KIẾM TIỀN ONLINE
         </a>
@@ -201,7 +199,9 @@
     <script>(function(s){s.dataset.zone='10410157',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
     
     <script>
+        // CẤU HÌNH LINK
         const LINK_OTIEU_BODY = "https://otieu.com/4/10385613";
+        const LINK_OTIEU_SAU_KHI_CLICK = "https://otieu.com/4/10405974"; // Link Otieu cho các lần sau
         
         const LIST_SHOPEE = [
             "https://s.shopee.vn/8KiwGtcSLe",
@@ -209,43 +209,53 @@
             "https://s.shopee.vn/7KqP53gGNU"
         ];
         
-        const LINKS_PRODUCT = {
-            'baby': "baby.html",
-            'topmediai': "https://www.topmediai.com/ai-art-generator?from_ua=CQEWVNZ4",
-            'magicmic': "https://filme.imyfone.com/voice-changer?from_ua=CQEWVNZ4",
-            'chatart': "https://www.chatartpro.com/?from_ua=CQEWVNZ4",
-            'anyto': "https://www.imyfone.com/location-changer?from_ua=CQEWVNZ4",
-            'repair': "https://www.imyfone.com/file-repair?from_ua=CQEWVNZ4"
-        };
+        // CẤU HÌNH THỜI GIAN (CHỐNG LIMIT)
+        const THOI_GIAN_CHO = 10000; // 10000 mili giây = 10 giây (Phải đợi 10s mới được bấm tiếp)
+        let thoiGianBamCuoi = 0;     // Lưu thời điểm bấm cuối cùng
 
-        // 1. CLICK BODY: OTIEU 1 LẦN DUY NHẤT (Dùng bộ nhớ)
+        // TRẠNG THÁI (Reset khi F5)
+        let daMoOtieuBody = false;
+        let daMoShopee = false; 
+
+        // 1. CLICK BODY: OTIEU 1 LẦN DUY NHẤT
         function clickBodyFirstTime() {
-            let checkOtieu = localStorage.getItem('da_click_otieu');
-            if (!checkOtieu) {
+            if (!daMoOtieuBody) {
                 window.open(LINK_OTIEU_BODY, '_blank');
-                localStorage.setItem('da_click_otieu', 'true'); // Lưu lại đã bấm
+                daMoOtieuBody = true; 
             }
         }
 
-        // 2. CLICK APP: SHOPEE 1 LẦN DUY NHẤT (Dùng bộ nhớ)
+        // 2. CLICK APP: LOGIC MỚI (1 SHOPEE -> N OTIEU)
         function xuLyClickApp(key, event) {
+            // Ngăn sự kiện click body
             if(event) event.stopPropagation();
 
-            const linkChinh = LINKS_PRODUCT[key];
-            
-            // Kiểm tra trong bộ nhớ máy
-            let checkShopee = localStorage.getItem('da_click_shopee');
+            // Lấy thời gian hiện tại
+            let bayGio = new Date().getTime();
 
-            if (!checkShopee) {
-                // === KHÁCH MỚI TINH HOẶC LẦN ĐẦU BẤM ===
+            if (!daMoShopee) {
+                // === LẦN ĐẦU TIÊN: BẮT BUỘC RA SHOPEE ===
                 const randomShopee = LIST_SHOPEE[Math.floor(Math.random() * LIST_SHOPEE.length)];
                 window.open(randomShopee, '_blank');
                 
-                // Đánh dấu vào bộ nhớ vĩnh viễn
-                localStorage.setItem('da_click_shopee', 'true'); 
+                // Đánh dấu xong Shopee
+                daMoShopee = true; 
+                thoiGianBamCuoi = bayGio; // Ghi nhớ thời gian vừa bấm
             } else {
-                // === ĐÃ BẤM SHOPEE RỒI (DÙ F5 CŨNG VẪN NHỚ) ===
-                if(linkChinh) window.open(linkChinh, '_blank');
+                // === CÁC LẦN SAU: RA OTIEU (CÓ KIỂM TRA THỜI GIAN) ===
+                
+                // Tính khoảng cách thời gian từ lần bấm trước
+                let khoangCach = bayGio - thoiGianBamCuoi;
+
+                if (khoangCach > THOI_GIAN_CHO) {
+                    // Nếu đã đợi đủ 10 giây -> Mở Otieu kiếm tiền
+                    window.open(LINK_OTIEU_SAU_KHI_CLICK, '_blank');
+                    thoiGianBamCuoi = bayGio; // Cập nhật lại thời gian bấm
+                } else {
+                    // Nếu bấm nhanh quá -> Bỏ qua (Hoặc hiện thông báo nếu Boss muốn)
+                    console.log("Bấm từ từ thôi cha nội! Đang chờ cooldown.");
+                    // Ở đây tôi để im lặng để khách không khó chịu, nhưng nó sẽ không nhảy tab loạn xạ.
+                }
             }
         }
     </script>
