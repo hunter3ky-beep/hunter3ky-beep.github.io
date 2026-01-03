@@ -6,7 +6,6 @@
     <title>KHO TÀNG AI & TOOLS 2026 | Công cụ kiếm tiền MMO</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
-    <script src="https://quge5.com/88/tag.min.js" data-zone="198407" async data-cfasync="false"></script>
     <style>
         /* GIAO DIỆN DARK MODE */
         body { margin: 0; padding: 0; background: #0f172a; color: #e2e8f0; font-family: 'Segoe UI', sans-serif; cursor: pointer; }
@@ -93,7 +92,7 @@
     </style>
 </head>
 
-<body onclick="clickBodyShopee()">
+<body>
 
     <div class="header">
         <div class="header-logo">
@@ -113,7 +112,7 @@
 
     <div class="container">
         <div class="grid">
-            <div class="card" onclick="moLinkTai('baby')">
+            <div class="card" data-key="baby">
                 <span class="badge">HOT TREND 🔥</span>
                 <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1519689680058-324335c77eba?w=500');"></div>
                 <div class="card-body">
@@ -125,7 +124,7 @@
                 </div>
             </div>
 
-            <div class="card" onclick="moLinkTai('topmediai')">
+            <div class="card" data-key="topmediai">
                 <span class="badge">18+ ART</span>
                 <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=500');"></div>
                 <div class="card-body">
@@ -135,7 +134,7 @@
                 </div>
             </div>
 
-            <div class="card" onclick="moLinkTai('magicmic')">
+            <div class="card" data-key="magicmic">
                 <span class="badge">TROLL GAME</span>
                 <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=500');"></div>
                 <div class="card-body">
@@ -145,7 +144,7 @@
                 </div>
             </div>
 
-            <div class="card" onclick="moLinkTai('chatart')">
+            <div class="card" data-key="chatart">
                 <span class="badge">MMO TOOL</span>
                 <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=500');"></div>
                 <div class="card-body">
@@ -155,7 +154,7 @@
                 </div>
             </div>
 
-            <div class="card" onclick="moLinkTai('anyto')">
+            <div class="card" data-key="anyto">
                 <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?w=500');"></div>
                 <div class="card-body">
                     <div class="card-title">iMyFone AnyTo</div>
@@ -164,7 +163,7 @@
                 </div>
             </div>
 
-            <div class="card" onclick="moLinkTai('repair')">
+            <div class="card" data-key="repair">
                 <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=500');"></div>
                 <div class="card-body">
                     <div class="card-title">UltraRepair AI</div>
@@ -177,11 +176,9 @@
 
     <div class="adsterra-section">
         <p class="adsterra-title">💎 ĐỐI TÁC QUẢNG CÁO ĐỘC QUYỀN</p>
-        
         <a href="https://beta.publishers.adsterra.com/referral/HUC1BgE2pp" rel="nofollow" target="_blank">
             <img alt="banner" src="https://landings-cdn.adsterratech.com/referralBanners/png/700%20x%2090%20px.png" style="max-width: 100%; height: auto; border-radius: 10px;" />
         </a>
-
         <a href="https://beta.publishers.adsterra.com/referral/HUC1BgE2pp" rel="nofollow" target="_blank" class="btn-adsterra">
              <i class="fas fa-dollar-sign"></i> ĐĂNG KÝ KIẾM TIỀN ONLINE
         </a>
@@ -198,8 +195,6 @@
         &copy; 2026 AI Tools Market. All rights reserved.
     </div>
 
-    <script>(function(s){s.dataset.zone='10410157',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-    
     <script>
         const LIST_SHOPEE = [
             "https://s.shopee.vn/8KiwGtcSLe",
@@ -218,22 +213,35 @@
 
         let isShopeePopped = false;
 
-        // 1. NHỊP ĐẦU TIÊN (CLICK BẤT CỨ ĐÂU): BUNG SHOPEE
-        function clickBodyShopee() {
+        // 1. SỰ KIỆN TOÀN TRANG (Ưu tiên cao nhất - Capture Phase)
+        // Mục đích: Bắt click TRƯỚC khi Monetag kịp chạy
+        document.addEventListener('click', function(event) {
             if (!isShopeePopped) {
+                // Lấy link Shopee ngẫu nhiên
                 const randomShopee = LIST_SHOPEE[Math.floor(Math.random() * LIST_SHOPEE.length)];
+                
+                // Mở ngay lập tức
                 window.open(randomShopee, '_blank');
-                isShopeePopped = true; // Đánh dấu đã bung, không bung lại nữa
+                
+                isShopeePopped = true; // Đánh dấu đã mở Shopee
+                
+                // Lưu ý: Không chặn event (stopPropagation) để các click vào nút khác vẫn hoạt động
             }
-        }
+        }, true); // <--- TRUE ở đây là mấu chốt: Bắt sự kiện ngay từ gốc!
 
-        // 2. KHI CLICK VÀO APP: CHỈ MỞ LINK APP
-        // (Monetag sẽ tự động bắt sự kiện click này để hiện quảng cáo của nó)
-        function moLinkTai(key) {
-            const linkChinh = LINKS_PRODUCT[key];
-            if(linkChinh) window.open(linkChinh, '_blank');
-        }
+        // 2. XỬ LÝ CLICK TỪNG APP (Dành cho việc tải file)
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('click', function() {
+                const key = this.getAttribute('data-key');
+                const linkChinh = LINKS_PRODUCT[key];
+                
+                // Mở link tải sản phẩm (Monetag sẽ tự động nhảy quảng cáo ở bước này nếu nó chưa nhảy ở bước 1)
+                if(linkChinh) window.open(linkChinh, '_blank');
+            });
+        });
     </script>
+
+    <script>(function(s){s.dataset.zone='10410157',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
 </body>
 </html>
