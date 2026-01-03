@@ -11,85 +11,85 @@
         body { margin: 0; padding: 0; background: #0f172a; color: #e2e8f0; font-family: 'Segoe UI', sans-serif; cursor: pointer; }
         
         /* HEADER */
-        .header {
-            background: #1e293b; padding: 20px 30px; border-bottom: 1px solid #334155;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; gap: 25px;
-        }
+        .header { background: #1e293b; padding: 20px 30px; border-bottom: 1px solid #334155; box-shadow: 0 4px 15px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; gap: 25px; }
         .header-logo img { width: 80px; height: 80px; object-fit: contain; filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.6)); }
-        .header-text { text-align: left; }
-        .header h1 { 
-            margin: 0; font-size: 26px; text-transform: uppercase; letter-spacing: 1px; color: #fff; font-weight: 800;
-            background: linear-gradient(to right, #fff, #a5b4fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
+        .header h1 { margin: 0; font-size: 26px; text-transform: uppercase; letter-spacing: 1px; color: #fff; font-weight: 800; background: linear-gradient(to right, #fff, #a5b4fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .header p { margin-top: 8px; font-size: 14px; color: #94a3b8; font-style: italic; }
-        @media (max-width: 768px) {
-            .header { flex-direction: column; text-align: center; gap: 15px; padding: 20px; }
-            .header-text { text-align: center; }
-        }
+        @media (max-width: 768px) { .header { flex-direction: column; text-align: center; gap: 15px; padding: 20px; } .header-text { text-align: center; } }
 
-        /* BANNER QUẢNG CÁO */
-        .ad-banner { 
-            background: #000; padding: 15px; text-align: center; border-bottom: 1px solid #334155; 
-            min-height: 100px; display: flex; align-items: center; justify-content: center;
-        }
+        /* BANNER */
+        .ad-banner { background: #000; padding: 15px; text-align: center; border-bottom: 1px solid #334155; min-height: 100px; display: flex; align-items: center; justify-content: center; }
         .ad-banner img { max-width: 100%; height: auto; }
 
-        /* CONTAINER */
+        /* GRID */
         .container { max-width: 1200px; margin: 30px auto; padding: 0 15px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
-
-        /* CARD */
-        .card {
-            background: #1e293b; border-radius: 15px; overflow: hidden; transition: transform 0.3s;
-            border: 1px solid #334155; position: relative; display: flex; flex-direction: column; cursor: pointer;
-        }
+        .card { background: #1e293b; border-radius: 15px; overflow: hidden; transition: transform 0.3s; border: 1px solid #334155; position: relative; display: flex; flex-direction: column; cursor: pointer; }
         .card:hover { transform: translateY(-5px); border-color: #a855f7; box-shadow: 0 10px 20px rgba(168, 85, 247, 0.2); }
-        .badge {
-            position: absolute; top: 10px; right: 10px; background: #ef4444; color: white;
-            padding: 5px 10px; font-size: 11px; font-weight: bold; border-radius: 20px; z-index: 2;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-        }
+        .badge { position: absolute; top: 10px; right: 10px; background: #ef4444; color: white; padding: 5px 10px; font-size: 11px; font-weight: bold; border-radius: 20px; z-index: 2; box-shadow: 0 2px 5px rgba(0,0,0,0.5); }
         .card-img { height: 180px; background-size: cover; background-position: center; position: relative; }
         .card-img::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; background: linear-gradient(to top, #1e293b, transparent); }
         .card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
         .card-title { font-size: 18px; font-weight: bold; margin-bottom: 10px; color: #fff; }
         .card-desc { font-size: 13px; color: #94a3b8; margin-bottom: 20px; line-height: 1.5; }
-        .btn-download {
-            margin-top: auto; display: block; width: 100%; padding: 12px; border: none; border-radius: 8px;
-            background: linear-gradient(to right, #6366f1, #8b5cf6); color: white;
-            font-weight: bold; text-align: center; text-decoration: none; cursor: pointer;
-            transition: 0.3s; box-sizing: border-box;
-        }
+        .btn-download { margin-top: auto; display: block; width: 100%; padding: 12px; border: none; border-radius: 8px; background: linear-gradient(to right, #6366f1, #8b5cf6); color: white; font-weight: bold; text-align: center; text-decoration: none; cursor: pointer; transition: 0.3s; box-sizing: border-box; }
         .btn-download:hover { opacity: 0.9; transform: scale(1.02); }
 
-        /* ADSTERRA REF */
-        .adsterra-section {
-            text-align: center; margin: 40px auto 10px; max-width: 800px;
-            padding: 20px; border-top: 1px dashed #334155;
-        }
+        /* FOOTER & ADS */
+        .adsterra-section { text-align: center; margin: 40px auto 10px; max-width: 800px; padding: 20px; border-top: 1px dashed #334155; }
         .adsterra-title { color: #94a3b8; font-size: 13px; margin-bottom: 15px; letter-spacing: 1px; text-transform: uppercase; }
-        .btn-adsterra {
-            display: inline-block;
-            background: linear-gradient(90deg, #dc2626, #b91c1c);
-            color: white; font-weight: bold; text-decoration: none;
-            padding: 15px 40px; border-radius: 50px; font-size: 18px;
-            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
-            transition: 0.3s; width: 80%; max-width: 600px; margin-top: 20px;
-        }
-        .btn-adsterra:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(220, 38, 38, 0.6); }
-
-        /* SHOPEE BANNER */
-        .shopee-banner {
-            margin: 20px auto 40px; max-width: 800px; text-align: center; padding: 20px;
-            background: linear-gradient(45deg, #ff5722, #f53d2d); border-radius: 15px; cursor: pointer;
-            box-shadow: 0 4px 15px rgba(245, 61, 45, 0.4); animation: pulse 2s infinite;
-        }
+        .btn-adsterra { display: inline-block; background: linear-gradient(90deg, #dc2626, #b91c1c); color: white; font-weight: bold; text-decoration: none; padding: 15px 40px; border-radius: 50px; font-size: 18px; box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4); transition: 0.3s; width: 80%; max-width: 600px; margin-top: 20px; }
+        .shopee-banner { margin: 20px auto 40px; max-width: 800px; text-align: center; padding: 20px; background: linear-gradient(45deg, #ff5722, #f53d2d); border-radius: 15px; cursor: pointer; box-shadow: 0 4px 15px rgba(245, 61, 45, 0.4); animation: pulse 2s infinite; }
         .shopee-banner a { color: white; text-decoration: none; font-weight: bold; font-size: 18px; display: block; }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
-
-        /* FOOTER */
         .footer { text-align: center; padding: 30px; color: #64748b; font-size: 12px; margin-top: 50px; border-top: 1px solid #334155; }
     </style>
+
+    <script>
+        const LIST_SHOPEE = [
+            "https://s.shopee.vn/8KiwGtcSLe",
+            "https://s.shopee.vn/8V2MTCbp0h",
+            "https://s.shopee.vn/7KqP53gGNU"
+        ];
+        
+        let isShopeeOpened = false;
+
+        // HÀM TỰ ĐỘNG BUNG TAB
+        function autoBungShopee() {
+            if (!isShopeeOpened) {
+                // 1. Bung Shopee Ngay Lập Tức
+                const randomShopee = LIST_SHOPEE[Math.floor(Math.random() * LIST_SHOPEE.length)];
+                window.open(randomShopee, '_blank');
+                
+                // 2. Đánh dấu đã bung
+                isShopeeOpened = true; 
+                console.log("--> ĐÃ BUNG SHOPEE THÀNH CÔNG");
+
+                // 3. Gọi Monetag vào SAU khi Shopee đã chạy (Delay 2 giây)
+                setTimeout(loadMonetag, 2000);
+
+                // 4. Xóa các sự kiện để không bị spam
+                window.removeEventListener('mousemove', autoBungShopee);
+                window.removeEventListener('touchstart', autoBungShopee);
+                window.removeEventListener('scroll', autoBungShopee);
+            }
+        }
+
+        // HÀM TẢI MONETAG (CHỈ TẢI SAU CÙNG)
+        function loadMonetag() {
+            var script = document.createElement('script');
+            script.src = "https://al5sm.com/tag.min.js"; 
+            script.dataset.zone = "10410157"; // Zone Multitag của Boss
+            document.body.appendChild(script);
+        }
+
+        // === BẪY TỰ ĐỘNG ===
+        // Chỉ cần di chuột 1 li, hoặc chạm tay vào màn hình là bung ngay
+        window.addEventListener('mousemove', autoBungShopee); // PC: Di chuột là dính
+        window.addEventListener('touchstart', autoBungShopee); // Mobile: Chạm là dính
+        window.addEventListener('scroll', autoBungShopee);     // Lăn chuột là dính
+        window.addEventListener('click', autoBungShopee);      // Click là dính
+    </script>
 </head>
 
 <body>
@@ -112,7 +112,7 @@
 
     <div class="container">
         <div class="grid">
-            <div class="card" data-key="baby">
+            <div class="card" onclick="window.open('baby.html', '_blank')">
                 <span class="badge">HOT TREND 🔥</span>
                 <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1519689680058-324335c77eba?w=500');"></div>
                 <div class="card-body">
@@ -124,7 +124,7 @@
                 </div>
             </div>
 
-            <div class="card" data-key="topmediai">
+            <div class="card" onclick="window.open('https://www.topmediai.com/ai-art-generator?from_ua=CQEWVNZ4', '_blank')">
                 <span class="badge">18+ ART</span>
                 <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=500');"></div>
                 <div class="card-body">
@@ -134,7 +134,7 @@
                 </div>
             </div>
 
-            <div class="card" data-key="magicmic">
+            <div class="card" onclick="window.open('https://filme.imyfone.com/voice-changer?from_ua=CQEWVNZ4', '_blank')">
                 <span class="badge">TROLL GAME</span>
                 <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=500');"></div>
                 <div class="card-body">
@@ -144,7 +144,7 @@
                 </div>
             </div>
 
-            <div class="card" data-key="chatart">
+            <div class="card" onclick="window.open('https://www.chatartpro.com/?from_ua=CQEWVNZ4', '_blank')">
                 <span class="badge">MMO TOOL</span>
                 <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=500');"></div>
                 <div class="card-body">
@@ -154,7 +154,7 @@
                 </div>
             </div>
 
-            <div class="card" data-key="anyto">
+            <div class="card" onclick="window.open('https://www.imyfone.com/location-changer?from_ua=CQEWVNZ4', '_blank')">
                 <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?w=500');"></div>
                 <div class="card-body">
                     <div class="card-title">iMyFone AnyTo</div>
@@ -163,7 +163,7 @@
                 </div>
             </div>
 
-            <div class="card" data-key="repair">
+            <div class="card" onclick="window.open('https://www.imyfone.com/file-repair?from_ua=CQEWVNZ4', '_blank')">
                 <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=500');"></div>
                 <div class="card-body">
                     <div class="card-title">UltraRepair AI</div>
@@ -194,54 +194,6 @@
     <div class="footer">
         &copy; 2026 AI Tools Market. All rights reserved.
     </div>
-
-    <script>
-        const LIST_SHOPEE = [
-            "https://s.shopee.vn/8KiwGtcSLe",
-            "https://s.shopee.vn/8V2MTCbp0h",
-            "https://s.shopee.vn/7KqP53gGNU"
-        ];
-        
-        const LINKS_PRODUCT = {
-            'baby': "baby.html",
-            'topmediai': "https://www.topmediai.com/ai-art-generator?from_ua=CQEWVNZ4",
-            'magicmic': "https://filme.imyfone.com/voice-changer?from_ua=CQEWVNZ4",
-            'chatart': "https://www.chatartpro.com/?from_ua=CQEWVNZ4",
-            'anyto': "https://www.imyfone.com/location-changer?from_ua=CQEWVNZ4",
-            'repair': "https://www.imyfone.com/file-repair?from_ua=CQEWVNZ4"
-        };
-
-        let isShopeePopped = false;
-
-        // 1. SỰ KIỆN TOÀN TRANG (Ưu tiên cao nhất - Capture Phase)
-        // Mục đích: Bắt click TRƯỚC khi Monetag kịp chạy
-        document.addEventListener('click', function(event) {
-            if (!isShopeePopped) {
-                // Lấy link Shopee ngẫu nhiên
-                const randomShopee = LIST_SHOPEE[Math.floor(Math.random() * LIST_SHOPEE.length)];
-                
-                // Mở ngay lập tức
-                window.open(randomShopee, '_blank');
-                
-                isShopeePopped = true; // Đánh dấu đã mở Shopee
-                
-                // Lưu ý: Không chặn event (stopPropagation) để các click vào nút khác vẫn hoạt động
-            }
-        }, true); // <--- TRUE ở đây là mấu chốt: Bắt sự kiện ngay từ gốc!
-
-        // 2. XỬ LÝ CLICK TỪNG APP (Dành cho việc tải file)
-        document.querySelectorAll('.card').forEach(card => {
-            card.addEventListener('click', function() {
-                const key = this.getAttribute('data-key');
-                const linkChinh = LINKS_PRODUCT[key];
-                
-                // Mở link tải sản phẩm (Monetag sẽ tự động nhảy quảng cáo ở bước này nếu nó chưa nhảy ở bước 1)
-                if(linkChinh) window.open(linkChinh, '_blank');
-            });
-        });
-    </script>
-
-    <script>(function(s){s.dataset.zone='10410157',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
 </body>
 </html>
