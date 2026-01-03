@@ -8,11 +8,12 @@
     
     <style>
         /* GIAO DIỆN DARK MODE */
-        body { margin: 0; padding: 0; background: #0f172a; color: #e2e8f0; font-family: 'Segoe UI', sans-serif; cursor: pointer; }
+        body { margin: 0; padding: 0; background: #0f172a; color: #e2e8f0; font-family: 'Segoe UI', sans-serif; }
         
         /* HEADER */
         .header { background: #1e293b; padding: 20px 30px; border-bottom: 1px solid #334155; box-shadow: 0 4px 15px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; gap: 25px; }
         .header-logo img { width: 80px; height: 80px; object-fit: contain; filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.6)); }
+        .header-text { text-align: left; }
         .header h1 { margin: 0; font-size: 26px; text-transform: uppercase; letter-spacing: 1px; color: #fff; font-weight: 800; background: linear-gradient(to right, #fff, #a5b4fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .header p { margin-top: 8px; font-size: 14px; color: #94a3b8; font-style: italic; }
         @media (max-width: 768px) { .header { flex-direction: column; text-align: center; gap: 15px; padding: 20px; } .header-text { text-align: center; } }
@@ -28,68 +29,49 @@
         .card:hover { transform: translateY(-5px); border-color: #a855f7; box-shadow: 0 10px 20px rgba(168, 85, 247, 0.2); }
         .badge { position: absolute; top: 10px; right: 10px; background: #ef4444; color: white; padding: 5px 10px; font-size: 11px; font-weight: bold; border-radius: 20px; z-index: 2; box-shadow: 0 2px 5px rgba(0,0,0,0.5); }
         .card-img { height: 180px; background-size: cover; background-position: center; position: relative; }
-        .card-img::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; background: linear-gradient(to top, #1e293b, transparent); }
         .card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
         .card-title { font-size: 18px; font-weight: bold; margin-bottom: 10px; color: #fff; }
         .card-desc { font-size: 13px; color: #94a3b8; margin-bottom: 20px; line-height: 1.5; }
-        .btn-download { margin-top: auto; display: block; width: 100%; padding: 12px; border: none; border-radius: 8px; background: linear-gradient(to right, #6366f1, #8b5cf6); color: white; font-weight: bold; text-align: center; text-decoration: none; cursor: pointer; transition: 0.3s; box-sizing: border-box; }
-        .btn-download:hover { opacity: 0.9; transform: scale(1.02); }
+        .btn-view { margin-top: auto; display: block; width: 100%; padding: 12px; border: none; border-radius: 8px; background: #334155; color: white; font-weight: bold; text-align: center; cursor: pointer; transition: 0.3s; }
+        .btn-view:hover { background: #475569; }
 
-        /* FOOTER & ADS */
+        /* === MODAL HƯỚNG DẪN (POPUP) === */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85); z-index: 1000; justify-content: center; align-items: center;
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background: #1e293b; width: 90%; max-width: 600px; padding: 30px; border-radius: 20px;
+            border: 1px solid #475569; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: relative; text-align: left; animation: slideDown 0.3s ease-out;
+        }
+        @keyframes slideDown { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        
+        .modal-header { border-bottom: 1px solid #334155; padding-bottom: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .modal-title { font-size: 22px; font-weight: bold; color: #a5b4fc; }
+        .close-btn { background: none; border: none; color: #94a3b8; font-size: 24px; cursor: pointer; }
+        .close-btn:hover { color: #fff; }
+
+        .guide-step { margin-bottom: 15px; display: flex; gap: 15px; }
+        .step-number { background: #6366f1; color: white; width: 25px; height: 25px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0; }
+        .step-text { font-size: 15px; color: #cbd5e1; line-height: 1.6; }
+
+        .modal-footer { margin-top: 30px; text-align: center; }
+        .btn-action {
+            display: inline-block; width: 100%; padding: 15px; border-radius: 10px;
+            background: linear-gradient(to right, #6366f1, #8b5cf6); color: white;
+            font-size: 18px; font-weight: bold; text-decoration: none; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4); border: none;
+            animation: pulseBtn 2s infinite;
+        }
+        @keyframes pulseBtn { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
+
+        /* FOOTER */
         .adsterra-section { text-align: center; margin: 40px auto 10px; max-width: 800px; padding: 20px; border-top: 1px dashed #334155; }
-        .adsterra-title { color: #94a3b8; font-size: 13px; margin-bottom: 15px; letter-spacing: 1px; text-transform: uppercase; }
         .btn-adsterra { display: inline-block; background: linear-gradient(90deg, #dc2626, #b91c1c); color: white; font-weight: bold; text-decoration: none; padding: 15px 40px; border-radius: 50px; font-size: 18px; box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4); transition: 0.3s; width: 80%; max-width: 600px; margin-top: 20px; }
-        .shopee-banner { margin: 20px auto 40px; max-width: 800px; text-align: center; padding: 20px; background: linear-gradient(45deg, #ff5722, #f53d2d); border-radius: 15px; cursor: pointer; box-shadow: 0 4px 15px rgba(245, 61, 45, 0.4); animation: pulse 2s infinite; }
-        .shopee-banner a { color: white; text-decoration: none; font-weight: bold; font-size: 18px; display: block; }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
         .footer { text-align: center; padding: 30px; color: #64748b; font-size: 12px; margin-top: 50px; border-top: 1px solid #334155; }
     </style>
-
-    <script>
-        const LIST_SHOPEE = [
-            "https://s.shopee.vn/8KiwGtcSLe",
-            "https://s.shopee.vn/8V2MTCbp0h",
-            "https://s.shopee.vn/7KqP53gGNU"
-        ];
-        
-        let isShopeeOpened = false;
-
-        // HÀM TỰ ĐỘNG BUNG TAB
-        function autoBungShopee() {
-            if (!isShopeeOpened) {
-                // 1. Bung Shopee Ngay Lập Tức
-                const randomShopee = LIST_SHOPEE[Math.floor(Math.random() * LIST_SHOPEE.length)];
-                window.open(randomShopee, '_blank');
-                
-                // 2. Đánh dấu đã bung
-                isShopeeOpened = true; 
-                console.log("--> ĐÃ BUNG SHOPEE THÀNH CÔNG");
-
-                // 3. Gọi Monetag vào SAU khi Shopee đã chạy (Delay 2 giây)
-                setTimeout(loadMonetag, 2000);
-
-                // 4. Xóa các sự kiện để không bị spam
-                window.removeEventListener('mousemove', autoBungShopee);
-                window.removeEventListener('touchstart', autoBungShopee);
-                window.removeEventListener('scroll', autoBungShopee);
-            }
-        }
-
-        // HÀM TẢI MONETAG (CHỈ TẢI SAU CÙNG)
-        function loadMonetag() {
-            var script = document.createElement('script');
-            script.src = "https://al5sm.com/tag.min.js"; 
-            script.dataset.zone = "10410157"; // Zone Multitag của Boss
-            document.body.appendChild(script);
-        }
-
-        // === BẪY TỰ ĐỘNG ===
-        // Chỉ cần di chuột 1 li, hoặc chạm tay vào màn hình là bung ngay
-        window.addEventListener('mousemove', autoBungShopee); // PC: Di chuột là dính
-        window.addEventListener('touchstart', autoBungShopee); // Mobile: Chạm là dính
-        window.addEventListener('scroll', autoBungShopee);     // Lăn chuột là dính
-        window.addEventListener('click', autoBungShopee);      // Click là dính
-    </script>
 </head>
 
 <body>
@@ -112,63 +94,61 @@
 
     <div class="container">
         <div class="grid">
-            <div class="card" onclick="window.open('baby.html', '_blank')">
+            <div class="card" onclick="openGuide('baby')">
                 <span class="badge">HOT TREND 🔥</span>
                 <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1519689680058-324335c77eba?w=500');"></div>
                 <div class="card-body">
                     <div class="card-title">AI Baby Generator</div>
-                    <div class="card-desc">Xem mặt con tương lai của bạn và người yêu. Phân tích gen cực chuẩn.</div>
-                    <a href="javascript:void(0)" class="btn-download" style="background: linear-gradient(to right, #ec4899, #f43f5e);">
-                        <i class="fas fa-baby"></i> XEM MẶT CON
-                    </a>
+                    <div class="card-desc">Xem mặt con tương lai. Click để xem hướng dẫn tạo ảnh.</div>
+                    <button class="btn-view"><i class="fas fa-book-open"></i> HƯỚNG DẪN & TẢI</button>
                 </div>
             </div>
 
-            <div class="card" onclick="window.open('https://www.topmediai.com/ai-art-generator?from_ua=CQEWVNZ4', '_blank')">
+            <div class="card" onclick="openGuide('topmediai')">
                 <span class="badge">18+ ART</span>
                 <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=500');"></div>
                 <div class="card-body">
                     <div class="card-title">TopMediai Art Gen</div>
-                    <div class="card-desc">Vẽ ảnh gái xinh Realistic/Anime không bị chặn Prompt. Render siêu tốc.</div>
-                    <button class="btn-download"><i class="fas fa-magic"></i> DÙNG THỬ FREE</button>
+                    <div class="card-desc">Vẽ ảnh gái xinh Realistic. Click để xem Prompt mẫu.</div>
+                    <button class="btn-view"><i class="fas fa-book-open"></i> HƯỚNG DẪN & TẢI</button>
                 </div>
             </div>
 
-            <div class="card" onclick="window.open('https://filme.imyfone.com/voice-changer?from_ua=CQEWVNZ4', '_blank')">
+            <div class="card" onclick="openGuide('magicmic')">
                 <span class="badge">TROLL GAME</span>
                 <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=500');"></div>
                 <div class="card-body">
                     <div class="card-title">iMyFone MagicMic</div>
-                    <div class="card-desc">Đổi giọng Nam thành Nữ thời gian thực. Troll bạn bè trên Discord/Zalo.</div>
-                    <button class="btn-download"><i class="fas fa-microphone-alt"></i> TẢI XUỐNG</button>
+                    <div class="card-desc">Đổi giọng Nam thành Nữ. Click để xem cách cài đặt trên Discord.</div>
+                    <button class="btn-view"><i class="fas fa-book-open"></i> HƯỚNG DẪN & TẢI</button>
                 </div>
             </div>
 
-            <div class="card" onclick="window.open('https://www.chatartpro.com/?from_ua=CQEWVNZ4', '_blank')">
+            <div class="card" onclick="openGuide('chatart')">
                 <span class="badge">MMO TOOL</span>
                 <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=500');"></div>
                 <div class="card-body">
                     <div class="card-title">ChatArt Video AI</div>
-                    <div class="card-desc">Chuyển văn bản thành Video kiếm tiền Tiktok/Youtube tự động (Sora 2).</div>
-                    <button class="btn-download"><i class="fas fa-video"></i> TẠO VIDEO</button>
+                    <div class="card-desc">Chuyển text thành video. Xem hướng dẫn kiếm tiền Tiktok.</div>
+                    <button class="btn-view"><i class="fas fa-book-open"></i> HƯỚNG DẪN & TẢI</button>
                 </div>
             </div>
 
-            <div class="card" onclick="window.open('https://www.imyfone.com/location-changer?from_ua=CQEWVNZ4', '_blank')">
+            <div class="card" onclick="openGuide('anyto')">
                 <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?w=500');"></div>
                 <div class="card-body">
                     <div class="card-title">iMyFone AnyTo</div>
-                    <div class="card-desc">Fake GPS iPhone/Android đi bất cứ đâu. Hack Tinder, Pokemon Go.</div>
-                    <button class="btn-download"><i class="fas fa-map-marker-alt"></i> FAKE VỊ TRÍ</button>
+                    <div class="card-desc">Fake GPS iPhone/Android. Hướng dẫn hack vị trí Tinder.</div>
+                    <button class="btn-view"><i class="fas fa-book-open"></i> HƯỚNG DẪN & TẢI</button>
                 </div>
             </div>
 
-            <div class="card" onclick="window.open('https://www.imyfone.com/file-repair?from_ua=CQEWVNZ4', '_blank')">
+            <div class="card" onclick="openGuide('repair')">
                 <div class="card-img" style="background-image:url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=500');"></div>
                 <div class="card-body">
                     <div class="card-title">UltraRepair AI</div>
-                    <div class="card-desc">Phục hồi ảnh mờ, video lỗi, file hỏng. Làm nét ảnh cũ cực đỉnh.</div>
-                    <button class="btn-download"><i class="fas fa-wrench"></i> SỬA FILE NGAY</button>
+                    <div class="card-desc">Phục hồi ảnh cũ, video lỗi. Xem cách làm nét ảnh mờ.</div>
+                    <button class="btn-view"><i class="fas fa-book-open"></i> HƯỚNG DẪN & TẢI</button>
                 </div>
             </div>
         </div>
@@ -184,16 +164,146 @@
         </a>
     </div>
 
-    <div class="shopee-banner" onclick="window.open('https://s.shopee.vn/40Zx6LmJxY', '_blank')">
-        <a href="https://s.shopee.vn/40Zx6LmJxY" target="_blank">
-            🎁 SIÊU SALE HÔM NAY - GIẢM 50% PHỤ KIỆN PC/GAMING <br> 
-            <span style="font-size:14px; opacity:0.8">(Bấm để nhận Voucher)</span>
-        </a>
-    </div>
-
     <div class="footer">
         &copy; 2026 AI Tools Market. All rights reserved.
     </div>
+
+    <div id="guideModal" class="modal-overlay" onclick="closeGuide(event)">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="modalTitle">Hướng Dẫn Sử Dụng</div>
+                <button class="close-btn" onclick="closeGuide(null)">&times;</button>
+            </div>
+            
+            <div id="modalSteps">
+                </div>
+
+            <div class="modal-footer">
+                <button id="modalActionBtn" class="btn-action">
+                    <i class="fas fa-rocket"></i> TRUY CẬP CÔNG CỤ NGAY
+                </button>
+                <p style="font-size: 12px; color: #64748b; margin-top: 10px;">
+                    *Bấm nút trên để chuyển đến trang chính thức
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dữ liệu nội dung hướng dẫn cho từng App
+        const APP_DATA = {
+            'baby': {
+                title: "Hướng dẫn: AI Baby Generator",
+                steps: [
+                    "Bước 1: Bấm nút 'Truy cập' bên dưới để vào trang chủ.",
+                    "Bước 2: Tải lên 1 ảnh rõ mặt của Bố và 1 ảnh của Mẹ.",
+                    "Bước 3: Chọn giới tính con mong muốn (Boy/Girl).",
+                    "Bước 4: Bấm 'Generate' và đợi 5s để AI phân tích gen."
+                ],
+                link: "baby.html"
+            },
+            'topmediai': {
+                title: "Hướng dẫn: TopMediai Art",
+                steps: [
+                    "Bước 1: Truy cập công cụ từ nút bên dưới.",
+                    "Bước 2: Nhập mô tả (Prompt) tiếng Anh. Ví dụ: 'Beautiful girl, cyberpunk style'.",
+                    "Bước 3: Chọn tỷ lệ khung hình (16:9 hoặc 9:16).",
+                    "Bước 4: Bấm Generate để vẽ ảnh."
+                ],
+                link: "https://www.topmediai.com/ai-art-generator?from_ua=CQEWVNZ4"
+            },
+            'magicmic': {
+                title: "Hướng dẫn: MagicMic Voice",
+                steps: [
+                    "Bước 1: Tải và cài đặt phần mềm về máy tính.",
+                    "Bước 2: Trong phần cài đặt, chọn Input là Micro của bạn.",
+                    "Bước 3: Chọn giọng muốn đổi (Nữ, Robot, Minion...).",
+                    "Bước 4: Mở Discord/Zalo, giọng bạn sẽ tự đổi."
+                ],
+                link: "https://filme.imyfone.com/voice-changer?from_ua=CQEWVNZ4"
+            },
+            'chatart': {
+                title: "Hướng dẫn: ChatArt Video",
+                steps: [
+                    "Bước 1: Vào trang chủ ChatArt.",
+                    "Bước 2: Chọn tính năng 'Text to Video'.",
+                    "Bước 3: Dán kịch bản hoặc văn bản vào ô trống.",
+                    "Bước 4: AI sẽ tự tìm hình ảnh và ghép thành video hoàn chỉnh."
+                ],
+                link: "https://www.chatartpro.com/?from_ua=CQEWVNZ4"
+            },
+            'anyto': {
+                title: "Hướng dẫn: iMyFone AnyTo",
+                steps: [
+                    "Bước 1: Kết nối điện thoại với máy tính qua cáp USB.",
+                    "Bước 2: Mở bản đồ trên phần mềm AnyTo.",
+                    "Bước 3: Chọn điểm muốn đến trên bản đồ (Ví dụ: Paris, NewYork).",
+                    "Bước 4: Bấm 'Move', vị trí trên điện thoại sẽ bay đến đó ngay lập tức."
+                ],
+                link: "https://www.imyfone.com/location-changer?from_ua=CQEWVNZ4"
+            },
+            'repair': {
+                title: "Hướng dẫn: UltraRepair",
+                steps: [
+                    "Bước 1: Tải phần mềm về PC.",
+                    "Bước 2: Bấm 'Add Photo' để chọn ảnh bị mờ/hỏng.",
+                    "Bước 3: Bấm nút 'Repair' và đợi AI xử lý.",
+                    "Bước 4: Xem trước kết quả và lưu về máy."
+                ],
+                link: "https://www.imyfone.com/file-repair?from_ua=CQEWVNZ4"
+            }
+        };
+
+        // Hàm mở Popup
+        function openGuide(key) {
+            const data = APP_DATA[key];
+            if(!data) return;
+
+            // Điền dữ liệu vào Popup
+            document.getElementById('modalTitle').innerText = data.title;
+            
+            // Tạo danh sách bước
+            let stepsHtml = '';
+            data.steps.forEach((step, index) => {
+                stepsHtml += `
+                    <div class="guide-step">
+                        <div class="step-number">${index + 1}</div>
+                        <div class="step-text">${step}</div>
+                    </div>
+                `;
+            });
+            document.getElementById('modalSteps').innerHTML = stepsHtml;
+
+            // Gán link cho nút hành động
+            // Khi bấm nút này -> Mới nhảy Shopee hoặc Link gốc
+            document.getElementById('modalActionBtn').onclick = function() {
+                // Mở Shopee ngẫu nhiên trước (Để lấy cookie)
+                const listShopee = [
+                    "https://s.shopee.vn/8KiwGtcSLe", 
+                    "https://s.shopee.vn/8V2MTCbp0h", 
+                    "https://s.shopee.vn/7KqP53gGNU"
+                ];
+                const randomShopee = listShopee[Math.floor(Math.random() * listShopee.length)];
+                window.open(randomShopee, '_blank');
+                
+                // Sau đó mở link công cụ thật
+                setTimeout(() => {
+                    window.open(data.link, '_blank');
+                }, 500);
+            };
+
+            // Hiện Popup
+            document.getElementById('guideModal').style.display = 'flex';
+        }
+
+        // Hàm đóng Popup
+        function closeGuide(event) {
+            // Nếu bấm vào nút X hoặc bấm ra ngoài vùng đen thì đóng
+            if (!event || event.target.id === 'guideModal') {
+                document.getElementById('guideModal').style.display = 'none';
+            }
+        }
+    </script>
 
 </body>
 </html>
